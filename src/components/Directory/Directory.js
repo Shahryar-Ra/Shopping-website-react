@@ -42,7 +42,7 @@ const sectionReducer = (state, action) => {
 };
 
 const Directory = () => {
-  const [sections, dispatch] = useReducer(sectionReducer, initialState);
+  const [sections] = useReducer(sectionReducer, initialState);
 
   return (
     <div className='directory-menu'>

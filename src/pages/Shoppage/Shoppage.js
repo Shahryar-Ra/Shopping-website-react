@@ -8,7 +8,7 @@ const shopReducer = (state, action) => {
 };
 
 const Shoppage = () => {
-  const [collections, dispatch] = useReducer(shopReducer, Data);
+  const [collections] = useReducer(shopReducer, Data);
 
   return (
     <div className='shop-page'>

@@ -1,4 +1,8 @@
 import React, { useReducer } from 'react';
+import './SignIn.scss';
+
+import FormInput from '../FormInput/FormInput';
+import Button from '../Button/Button';
 
 const initialState = {
   email: '',
@@ -44,24 +48,24 @@ const SignIn = () => {
       <span>Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
-        <input
+        <FormInput
           name='email'
           type='email'
           value={state.email}
           onChange={handleChange}
+          label='Email'
           required
         />
-        <label>Email</label>
-        <input
+        <FormInput
           name='password'
           type='password'
           value={state.password}
           onChange={handleChange}
+          label='Password'
           required
         />
-        <label>Password</label>
 
-        <input type='submit' value='Submit Form' />
+        <Button type='submit'>Sign In</Button>
       </form>
     </div>
   );
