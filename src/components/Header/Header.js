@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { auth } from '../../Firebase/firebase.utils';
 
-const Header = ({ user }) => {
-  console.log(user);
+const Header = ({ currentUser }) => {
   return (
     <div className='header'>
       <Link to='/' className='logo-container'>
@@ -19,8 +18,7 @@ const Header = ({ user }) => {
         <Link className='option' to='/contact'>
           CONTACT
         </Link>
-
-        {user ? (
+        {currentUser.currentUser ? (
           <div className='option' onClick={() => auth.signOut()}>
             SIGN OUT
           </div>
