@@ -4,6 +4,8 @@ import './SignIn.scss';
 import FormInput from '../FormInput/FormInput';
 import Button from '../Button/Button';
 
+import { signInWithGoogle } from '../../Firebase/firebase.utils';
+
 const initialState = {
   email: '',
   password: '',
@@ -66,6 +68,7 @@ const SignIn = () => {
         />
 
         <Button type='submit'>Sign In</Button>
+        <Button onClick={signInWithGoogle}>Sign In with Google</Button>
       </form>
     </div>
   );

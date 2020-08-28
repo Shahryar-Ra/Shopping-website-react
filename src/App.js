@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
@@ -7,7 +7,35 @@ import Shoppage from './pages/Shoppage/Shoppage';
 import Header from './components/Header/Header';
 import SignIn from './pages/Signinpage/Signinpage';
 
+import { auth } from './Firebase/firebase.utils';
+
+const initialState = {
+  currentUser: null,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        currentUser: action.user,
+      };
+
+    default:
+      alert('Error in reducer switch');
+  }
+};
+
 function App() {
+  const [currentUser, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      dispatch({ type: 'SET_USER', payload: user });
+      console.log(user);
+    });
+  }, []);
+
   return (
     <div>
       <Header />
