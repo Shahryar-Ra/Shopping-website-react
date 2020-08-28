@@ -30,7 +30,7 @@ function App() {
   const [currentUser, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       dispatch({ type: 'SET_USER', payload: user });
       console.log(user);
     });
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <Header user={currentUser} />
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route exact path='/shop' component={Shoppage} />
