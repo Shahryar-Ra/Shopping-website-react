@@ -9,44 +9,23 @@ import SignIn from './pages/Signinpage/Signinpage';
 
 import { auth, createUserProfileDocument } from './Firebase/firebase.utils';
 
-const initialState = {
-  currentUser: null,
-};
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_USER':
-      return {
-        currentUser: action.payload,
-      };
-    case 'CLEAR_USER':
-      return {
-        currentUser: null,
-      };
-
-    default:
-      alert('Error in reducer switch in app.js');
-  }
-};
-
-function App() {
-  const [currentUser, dispatch] = useReducer(reducer, initialState);
-
+function App({ setCurrentUser }) {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
-          dispatch({
-            type: 'SET_USER',
-            payload: { id: snapShot.id, ...snapShot.data() },
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
           });
         });
       } else {
-        dispatch({
-          type: 'CLEAR_USER',
-        });
+        setCurrentUser(null);
       }
     });
 
@@ -57,7 +36,7 @@ function App() {
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route exact path='/shop' component={Shoppage} />
@@ -67,4 +46,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
