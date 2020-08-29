@@ -16,7 +16,7 @@ const initialState = {
   confirmPassword: '',
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ON_CHANGE':
       return {

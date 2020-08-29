@@ -17,7 +17,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_USER':
       return {
-        currentUser: { ...action.payload },
+        currentUser: action.payload,
       };
     case 'CLEAR_USER':
       return {
