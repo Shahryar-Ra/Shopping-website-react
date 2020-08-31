@@ -1,16 +1,27 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
+// pages import
 import Homepage from './pages/Homepage/Homepage';
 import Shoppage from './pages/Shoppage/Shoppage';
+import Signinpage from './pages/Signinpage/Signinpage';
+import Checkout from './pages/CheckoutPage/Checkout';
+
+// components imports
 import Header from './components/Header/Header';
 
+// React Router imports
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+// Firebase imports
 import { auth, createUserProfileDocument } from './Firebase/firebase.utils';
 
+// Redux imports
+import { selectCurrentUser } from './redux/user/user.selector';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
-import Signinpage from './pages/Signinpage/Signinpage';
+
+// ------------------- App
 
 function App({ setCurrentUser, currentUser }) {
   useEffect(() => {
@@ -45,13 +56,14 @@ function App({ setCurrentUser, currentUser }) {
           path='/signin'
           render={() => (currentUser ? <Redirect to='/' /> : <Signinpage />)}
         />
+        <Route exact path='/checkout' component={Checkout} />
       </Switch>
     </div>
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
