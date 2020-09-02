@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage/Homepage';
 import Shoppage from './pages/Shoppage/Shoppage';
 import Signinpage from './pages/Signinpage/Signinpage';
 import Checkout from './pages/CheckoutPage/Checkout';
+import CollectionPage from './pages/CollectionPage/CollectionPage';
 
 // components imports
 import Header from './components/Header/Header';
@@ -51,6 +52,7 @@ function App({ setCurrentUser, currentUser }) {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route exact path='/shop' component={Shoppage} />
+        <Route exact path='/shop/:collectionId' component={CollectionPage} />
         <Route
           exact
           path='/signin'
